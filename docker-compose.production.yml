@@ -1,0 +1,52 @@
+---
+version: "3.7"
+
+services:
+  wordpress:
+    ports:
+      - "80:80"
+    volumes:
+      - "wordpress:/var/www/html"
+    networks:
+      - proxy
+    environment:
+      - WORDPRESS_DB_HOST=mariadb
+      - WORDPRESS_DB_USER_FILE=wordpress
+      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/wp-db-passwd
+      - WORDPRESS_DB_NAME_FILE=wordpress
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        failure_action: rollback
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.services.wordpress.loadbalancer.server.port=web"
+        - "traefik.http.routers.wordpress.rule=Host(`wp.swarm.autonomic.zone`)"
+        - "traefik.http.routers.wordpress.entrypoints=web-secure"
+        - "traefik.http.routers.wordpress.tls.certresolver=staging"
+
+  mariadb:
+    volumes:
+      - "mariadb:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql-root-passwd
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD_FILE=/run/secrets/mysql-user-passwd
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  mariadb:
+  wordpress:
+
+secrets:
+  wp-db-passwd:
+  mysql-root-passwd:
+  mysql-user-passwd:
