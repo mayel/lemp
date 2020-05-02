@@ -4,18 +4,18 @@ version: "3.7"
 services:
   wordpress:
     ports:
-      - "80:80"
+      - "8030:80"
     volumes:
-      - "wordpress:/var/www/html"
+      - "wp:/var/www/html"
     networks:
       - proxy
     environment:
       - WORDPRESS_DB_HOST=mariadb
       - WORDPRESS_DB_USER_FILE=wordpress
-      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/wp-db-passwd
+      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/wp-db-passwd-v1
       - WORDPRESS_DB_NAME_FILE=wordpress
     secrets:
-      - wp-db-passwd
+      - wp-db-passwd-v1
     deploy:
       mode: replicated
       replicas: 1
@@ -26,35 +26,35 @@ services:
           - node.role == manager
       labels:
         - "traefik.enable=true"
-        - "traefik.http.services.wordpress.loadbalancer.server.port=web"
+        - "traefik.http.services.wordpress.loadbalancer.server.port=8030"
         - "traefik.http.routers.wordpress.rule=Host(`wp.swarm.autonomic.zone`)"
         - "traefik.http.routers.wordpress.entrypoints=web-secure"
         - "traefik.http.routers.wordpress.tls.certresolver=staging"
 
   mariadb:
     volumes:
-      - "mariadb:/var/lib/mysql"
+      - "db:/var/lib/mysql"
     environment:
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql-root-passwd
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql-root-passwd-v1
       - MYSQL_DATABASE=wordpress
       - MYSQL_USER=wordpress
-      - MYSQL_PASSWORD_FILE=/run/secrets/mysql-user-passwd
+      - MYSQL_PASSWORD_FILE=/run/secrets/mysql-user-passwd-v1
     secrets:
-      - mysql-root-passwd
-      - mysql-user-passwd
+      - mysql-root-passwd-v1
+      - mysql-user-passwd-v1
 
 networks:
   proxy:
     external: true
 
 volumes:
-  mariadb:
-  wordpress:
+  db:
+  wp:
 
 secrets:
-  wp-db-passwd:
+  wp-db-passwd-v1:
     external: true
-  mysql-root-passwd:
+  mysql-root-passwd-v1:
     external: true
-  mysql-user-passwd:
+  mysql-user-passwd-v1:
     external: true
