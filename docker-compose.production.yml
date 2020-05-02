@@ -11,9 +11,9 @@ services:
       - proxy
     environment:
       - WORDPRESS_DB_HOST=mariadb
-      - WORDPRESS_DB_USER_FILE=wordpress
+      - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/wp-db-passwd-v1
-      - WORDPRESS_DB_NAME_FILE=wordpress
+      - WORDPRESS_DB_NAME=wordpress
     secrets:
       - wp-db-passwd-v1
     deploy:
