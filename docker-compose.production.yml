@@ -8,6 +8,7 @@ services:
     volumes:
       - "wp:/var/www/html"
     networks:
+      - backend
       - proxy
     environment:
       - WORDPRESS_DB_HOST=mariadb
@@ -34,6 +35,8 @@ services:
   mariadb:
     volumes:
       - "db:/var/lib/mysql"
+    networks:
+      - backend
     environment:
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql-root-passwd-v1
       - MYSQL_DATABASE=wordpress
@@ -44,6 +47,7 @@ services:
       - mysql-user-passwd-v1
 
 networks:
+  backend:
   proxy:
     external: true
 
