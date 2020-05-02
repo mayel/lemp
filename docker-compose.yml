@@ -8,4 +8,4 @@ services:
       - mariadb
 
   mariadb:
-    image: mariadb:10.4
+    image: mariadb:10.5
