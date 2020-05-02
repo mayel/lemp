@@ -14,6 +14,8 @@ services:
       - WORDPRESS_DB_USER_FILE=wordpress
       - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/wp-db-passwd
       - WORDPRESS_DB_NAME_FILE=wordpress
+    secrets:
+      - wp-db-passwd
     deploy:
       mode: replicated
       replicas: 1
@@ -37,6 +39,9 @@ services:
       - MYSQL_DATABASE=wordpress
       - MYSQL_USER=wordpress
       - MYSQL_PASSWORD_FILE=/run/secrets/mysql-user-passwd
+    secrets:
+      - mysql-root-passwd
+      - mysql-user-passwd
 
 networks:
   proxy:
@@ -48,5 +53,8 @@ volumes:
 
 secrets:
   wp-db-passwd:
+    external: true
   mysql-root-passwd:
+    external: true
   mysql-user-passwd:
+    external: true
