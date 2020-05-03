@@ -1,5 +1,7 @@
 # wordpress
 
+[![Build Status](https://drone.autonomic.zone/api/badges/autonomic-cooperative/wordpress/status.svg)](https://drone.autonomic.zone/autonomic-cooperative/wordpress)
+
 > https://wordpress.org
 
 > https://wp.swarm.autonomic.zone
