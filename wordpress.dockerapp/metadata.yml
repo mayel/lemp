@@ -1,9 +1,0 @@
----
-version: 0.1.0
-name: wordpress
-description: |
-  WordPress is open source software you can use to create a beautiful website,
-  blog, or app.
-maintainers:
-  - name: decentral1se
-    email: lukewm@riseup.net
