@@ -1,10 +1,6 @@
 # wordpress
 
-[![Build Status](https://drone.autonomic.zone/api/badges/autonomic-cooperative/wordpress/status.svg)](https://drone.autonomic.zone/autonomic-cooperative/wordpress)
-
 > https://wordpress.org
-
-> https://wp.swarm.autonomic.zone
 
 ## Development
 
@@ -25,8 +21,3 @@ of something like [wait-for-it](https://github.com/vishnubob/wait-for-it)
 because the `depends_on` stanza makes Docker swarm wait for it to come up on
 the production deploy. So, we can just avoid doing this altogether for the
 development workflow to save ourselves work.
-
-## Production
-
-1. Our [drone.autonomic.zone](https://drone.autonomic.zone/autonomic-cooperative/wordpress/) configuration automatically deploys.
-1. For a manual deploy guide, see [this documentation](https://git.autonomic.zone/autonomic-cooperative/organising/wiki/working-with-docker-swarm).

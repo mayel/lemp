@@ -1,0 +1,3 @@
+wordpress:
+  port: 8000
+  domain: foobar.com

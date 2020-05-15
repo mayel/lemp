@@ -1,0 +1,3 @@
+wordpress:
+  port: 3050
+  domain: example.com

@@ -3,10 +3,11 @@ version: "3.7"
 
 services:
   wordpress:
+    image: wordpress:5.4.1
     ports:
-      - "3050:80"
+      - 3050:80
     volumes:
-      - "wp:/var/www/html"
+      - wp:/var/www/html
     networks:
       - backend
       - proxy
@@ -26,15 +27,16 @@ services:
         constraints:
           - node.role == manager
       labels:
-        - "traefik.enable=true"
-        - "traefik.http.services.wordpress.loadbalancer.server.port=80"
-        - "traefik.http.routers.wordpress.rule=Host(`wp.swarm.autonomic.zone`)"
-        - "traefik.http.routers.wordpress.entrypoints=web-secure"
-        - "traefik.http.routers.wordpress.tls.certresolver=staging"
+        traefik.enable: "true"
+        traefik.http.services.wordpress.loadbalancer.server.port: "80"
+        traefik.http.routers.wordpress.rule: "Host(`wp.swarm.autonomic.zone`)"
+        traefik.http.routers.wordpress.entrypoints: "web-secure"
+        traefik.http.routers.wordpress.tls.certresolver: "staging"
 
   mariadb:
+    image: mariadb:10.5
     volumes:
-      - "db:/var/lib/mysql"
+      - db:/var/lib/mysql
     networks:
       - backend
     environment:
