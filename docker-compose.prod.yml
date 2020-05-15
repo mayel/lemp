@@ -5,7 +5,7 @@ services:
   wordpress:
     image: "wordpress:5.4.1"
     ports:
-      - "${wordpress.port}:80"
+      - "3050:80"
     volumes:
       - "wp:/var/www/html"
     networks:
@@ -29,7 +29,7 @@ services:
       labels:
         traefik.enable: "true"
         traefik.http.services.wordpress.loadbalancer.server.port: "80"
-        traefik.http.routers.wordpress.rule: "Host(`${wordpress.domain}`)"
+        traefik.http.routers.wordpress.rule: "Host(`wp.swarm.autonomic.zone`)"
         traefik.http.routers.wordpress.entrypoints: "web-secure"
         traefik.http.routers.wordpress.tls.certresolver: "staging"
 
