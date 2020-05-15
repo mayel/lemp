@@ -1,11 +1,11 @@
 ---
-version: 3.7
+version: "3.7"
 
 services:
   wordpress:
-    image: wordpress:5.4.1
+    image: "wordpress:5.4.1"
     ports:
-      - 8010:80
+      - "8010:80"
     depends_on:
       - mariadb
     environment:
@@ -15,7 +15,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
 
   mariadb:
-    image: mariadb:10.5
+    image: "mariadb:10.5"
     environment:
       MYSQL_ROOT_PASSWORD: somewordpress
       MYSQL_DATABASE: wordpress
