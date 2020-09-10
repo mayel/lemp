@@ -1,2 +1,6 @@
-# The path to our pass credentials store
-export PASSWORD_STORE_DIR=$(pwd)/../infrastructure/credentials/password-store
+export DOMAIN=wordpress.example.com
+export STACK_NAME=wordpress
+export LETS_ENCRYPT_ENV=production
+
+export DB_ROOT_PASSWORD_VERSION=v1
+export DB_PASSWORD_VERSION=v1

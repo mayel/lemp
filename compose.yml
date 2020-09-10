@@ -1,0 +1,67 @@
+---
+version: "3.8"
+
+services:
+  wordpress:
+    image: "wordpress:5.4.1"
+    volumes:
+      - "wordpress_content:/var/www/html/wp-content/"
+    networks:
+      - backend
+      - proxy
+    environment:
+      - WORDPRESS_DB_HOST=mariadb
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password
+      - WORDPRESS_DB_NAME=wordpress
+    secrets:
+      - db_password
+    deploy:
+      #mode: replicated
+      #replicas: 1
+      #update_config:
+      #  failure_action: rollback
+      #placement:
+      #  constraints:
+      #    - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=proxy"
+        - "traefik.http.routers.${STACK_NAME}.tls=true"
+        - "traefik.http.services.${STACK_NAME}.loadbalancer.server.port=80"
+        - "traefik.http.routers.${STACK_NAME}.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK_NAME}.tls.certresolver=${LETS_ENCRYPT_ENV}"
+        - "traefik.http.routers.${STACK_NAME}.entrypoints=web-secure"
+
+  mariadb:
+    image: "mariadb:10.5"
+    volumes:
+      - "mariadb:/var/lib/mysql"
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
+    secrets:
+      - db_password
+      - db_root_password
+
+networks:
+  backend:
+    driver: overlay
+  proxy:
+    external: true
+
+volumes:
+  mariadb:
+  wordpress_content:
+
+secrets:
+  db_root_password:    
+    external: true 
+    name: ${STACK_NAME}_db_root_password_${DB_ROOT_PASSWORD_VERSION}
+  db_password:    
+    external: true 
+    name: ${STACK_NAME}_db_password_${DB_ROOT_PASSWORD_VERSION}
