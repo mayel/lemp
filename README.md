@@ -19,5 +19,21 @@ Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
 9. `abra run wordpress chown www-data:www-data /var/www/html/wp-content` to fix
    file permissions (see #3)
 
+## Network (Multi-site)
+
+_(Only tested using subdomains)_
+
+1. Set up as above
+2. Uncomment the first `# Multisite` section in `.envrc`
+3. `direnv allow` (or re-run `source .envrc`)
+4. `abra deploy`
+5. Log into the Wordpress admin dashboard, go to Tools » Network Setup
+6. Don't worry about the suggested file changes
+7. Comment out the first `# Multisite` section in `.envrc` and uncomment the
+   `# Multisite phase 2` section
+8. `direnv allow` (or re-run `source .envrc`)
+9. `abra deploy`
+10. FIXME setting up SSL / routing
+
 [abra]: https://git.autonomic.zone/autonomic-cooperative/abra
 [compose-traefik]: https://git.autonomic.zone/compose-stacks/traefik
