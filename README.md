@@ -35,5 +35,9 @@ _(Only tested using subdomains)_
 9. `abra deploy`
 10. FIXME setting up SSL / routing
 
+## Installing a custom theme
+
+`abra cp ~/path/to/local/theme wordpress:/var/www/html/wp-content/themes/`
+
 [abra]: https://git.autonomic.zone/autonomic-cooperative/abra
 [compose-traefik]: https://git.autonomic.zone/compose-stacks/traefik
