@@ -26,7 +26,10 @@ services:
         - "traefik.docker.network=proxy"
         - "traefik.http.routers.${STACK_NAME}.tls=true"
         - "traefik.http.services.${STACK_NAME}.loadbalancer.server.port=80"
-        - "traefik.http.routers.${STACK_NAME}.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.${STACK_NAME}.rule=(Host(`ch.${DOMAIN}`, `${DOMAIN}`)"
+        # 3wc: this rule works for routing, but not for generating certificates
+        # see https://git.autonomic.zone/compose-stacks/planning/issues/14
+        #- "traefik.http.routers.${STACK_NAME}.rule=HostRegexp(`{subdomain:.+}.${DOMAIN}`, `${DOMAIN}`)"
         - "traefik.http.routers.${STACK_NAME}.tls.certresolver=${LETS_ENCRYPT_ENV}"
         - "traefik.http.routers.${STACK_NAME}.entrypoints=web-secure"
 
