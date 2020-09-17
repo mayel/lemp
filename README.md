@@ -1,6 +1,5 @@
 # wordpress
 
-
 Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
 
 1. Set up Docker Swarm and [`abra`][abra]
@@ -17,6 +16,8 @@ Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
 
 7. `abra deploy`
 8. Open the configured domain in your browser to finish set-up
+9. `abra run wordpress chown www-data:www-data /var/www/html/wp-content` to fix
+   file permissions (see #3)
 
 [abra]: https://git.autonomic.zone/autonomic-cooperative/abra
 [compose-traefik]: https://git.autonomic.zone/compose-stacks/traefik
