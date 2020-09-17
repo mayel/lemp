@@ -3,7 +3,7 @@ version: "3.8"
 
 services:
   wordpress:
-    image: "wordpress:5.4.1"
+    image: "wordpress:5.5.1"
     volumes:
       - "wordpress_content:/var/www/html/wp-content/"
     networks:
