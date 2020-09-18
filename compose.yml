@@ -44,6 +44,28 @@ services:
       - db_password
       - db_root_password
 
+  backupbot:
+    image: "decentral1se/backup-bot:0.0.1"
+    secrets:
+      - backup_bot_ssh_key
+      - db_password
+    configs:
+      - source: borgmatic_config_yml
+        target: /etc/borgmatic/config.yaml
+    environment:
+      - BORGBASE_REPO="g067e243@g067e243.repo.borgbase.com:repo"
+      - DB_HOST=mariadb
+      - DB_TABLE=wordpress
+      - DB_USER=wordpress
+    deploy:
+      mode: replicated
+      replicas: 0
+      labels:
+        - "swarm.cronjob.enable=true"
+        - "swarm.cronjob.schedule=0 2 * * *" # "At 02:00 every night"
+      restart_policy:
+        condition: none
+
 networks:
   backend:
     driver: overlay
@@ -53,6 +75,12 @@ networks:
 volumes:
   mariadb:
   wordpress_content:
+
+configs:
+  borgmatic_config_yml:
+    name: borgmatic_config_yml_v1
+    file: borgmatic.yml
+    template_driver: golang
 
 secrets:
   db_root_password:
