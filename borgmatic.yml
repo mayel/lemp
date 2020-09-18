@@ -22,9 +22,9 @@ location:
     prefix: "{hostname}-"
 
 hooks:
-mysql_databases:
-  - name: {{ env "DB_TABLE" }}
-    hostname: {{ env "DB_HOST" }}
-    port: 3306
-    username: { { env "DB_USER" }}
-    password: { { secret "db_password" }}
+  mysql_databases:
+    - name: {{ env "DB_TABLE" }}
+      hostname: {{ env "DB_HOST" }}
+      port: 3306
+      username: {{ env "DB_USER" }}
+      password: {{ secret "db_password" }}
