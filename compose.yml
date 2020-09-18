@@ -17,13 +17,9 @@ services:
     secrets:
       - db_password
     deploy:
-      #mode: replicated
-      #replicas: 1
-      #update_config:
-      #  failure_action: rollback
-      #placement:
-      #  constraints:
-      #    - node.role == manager
+      update_config:
+        failure_action: rollback
+        order: start-first
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=proxy"
