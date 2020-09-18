@@ -6,6 +6,7 @@ location:
     compression: auto,zstd
     encryption_passphrase: CHANGEME
     archive_name_format: "{hostname}-{now}"
+    ssh_command: ssh -i /run/secrets/backup_bot_ssh_key
 
   retention:
     keep_daily: 3
