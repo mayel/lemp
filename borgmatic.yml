@@ -1,27 +1,32 @@
 location:
+  source_directories: []
   repositories:
     - {{ env "BORGBASE_REPO" }}
 
-  storage:
-    compression: auto,zstd
-    encryption_passphrase: CHANGEME
-    archive_name_format: "{hostname}-{now}"
-    ssh_command: ssh -i /run/secrets/backup_bot_ssh_key
+storage:
+  compression: auto,zstd
+  encryption_passphrase: {{ secret "backup_bot_password" }}
+  archive_name_format: "{hostname}-{now}"
+  ssh_command: "ssh -o 'StrictHostKeyChecking no' -i /run/secrets/backup_bot_ssh_key"
 
-  retention:
-    keep_daily: 3
-    keep_weekly: 4
-    keep_monthly: 12
-    keep_yearly: 2
-    prefix: "{hostname}-"
+retention:
+  keep_daily: 3
+  keep_weekly: 4
+  keep_monthly: 12
+  keep_yearly: 2
+  prefix: "{hostname}-"
 
-  consistency:
-    checks:
-      - disabled
-    check_last: 3
-    prefix: "{hostname}-"
+consistency:
+  checks:
+    - disabled
+  check_last: 3
+  prefix: "{hostname}-"
 
 hooks:
+  before_backup:
+    - echo "`date` - Starting backup"
+  after_backup:
+    - echo "`date` - Finished backup"
   mysql_databases:
     - name: {{ env "DB_TABLE" }}
       hostname: {{ env "DB_HOST" }}

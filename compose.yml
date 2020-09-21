@@ -46,8 +46,12 @@ services:
 
   backupbot:
     image: "decentral1se/backup-bot:0.0.1"
+    networks:
+      - backend
     secrets:
-      - backup_bot_ssh_key
+      - source: backup_bot_ssh_key
+        mode: 0400
+      - backup_bot_password
       - db_password
     configs:
       - source: borgmatic_config_yml
@@ -62,7 +66,7 @@ services:
       replicas: 0
       labels:
         - "swarm.cronjob.enable=true"
-        - "swarm.cronjob.schedule=0 2 * * *" # "At 02:00 every night"
+        - "swarm.cronjob.schedule=0 2 * * *" # At 02:00
       restart_policy:
         condition: none
 
@@ -78,7 +82,7 @@ volumes:
 
 configs:
   borgmatic_config_yml:
-    name: borgmatic_config_yml_v1
+    name: borgmatic_config_yml_v6
     file: borgmatic.yml
     template_driver: golang
 
@@ -89,3 +93,9 @@ secrets:
   db_password:
     external: true
     name: ${STACK_NAME}_db_password_${DB_ROOT_PASSWORD_VERSION}
+  backup_bot_ssh_key:
+    name: backup_bot_ssh_key_v1
+    external: true
+  backup_bot_password:
+    name: backup_bot_password_v1
+    external: true
