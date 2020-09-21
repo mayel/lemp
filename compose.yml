@@ -48,34 +48,6 @@ services:
       - db_password
       - db_root_password
 
-  backupbot:
-    image: "decentral1se/backup-bot:0.0.1"
-    networks:
-      - backend
-    volumes:
-      - "wordpress_content:/var/www/html/wp-content/"
-    secrets:
-      - source: backup_bot_ssh_key
-        mode: 0400
-      - backup_bot_password
-      - db_password
-    configs:
-      - source: borgmatic_config_yml
-        target: /etc/borgmatic/config.yaml
-    environment:
-      - BORGBASE_REPO="g067e243@g067e243.repo.borgbase.com:repo"
-      - DB_HOST=mariadb
-      - DB_TABLE=wordpress
-      - DB_USER=wordpress
-    deploy:
-      mode: replicated
-      replicas: 0
-      labels:
-        - "swarm.cronjob.enable=true"
-        - "swarm.cronjob.schedule=0 2 * * *" # At 02:00
-      restart_policy:
-        condition: none
-
 networks:
   backend:
     driver: overlay
@@ -86,11 +58,6 @@ volumes:
   mariadb:
   wordpress_content:
 
-configs:
-  borgmatic_config_yml:
-    name: borgmatic_config_yml_v7
-    file: borgmatic.yml
-    template_driver: golang
 
 secrets:
   db_root_password:
@@ -99,9 +66,3 @@ secrets:
   db_password:
     external: true
     name: ${STACK_NAME}_db_password_${DB_ROOT_PASSWORD_VERSION}
-  backup_bot_ssh_key:
-    name: backup_bot_ssh_key_v1
-    external: true
-  backup_bot_password:
-    name: backup_bot_password_v1
-    external: true

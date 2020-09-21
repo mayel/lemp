@@ -41,3 +41,9 @@ _(Only tested using subdomains)_
 
 [abra]: https://git.autonomic.zone/autonomic-cooperative/abra
 [compose-traefik]: https://git.autonomic.zone/compose-stacks/traefik
+
+## Backups
+
+1. Edit `.envrc` and uncomment the `export COMPOSE_FILE="compose.yml:compose.backup.yml"` line
+2. `direnv allow`
+3. `abra deploy`

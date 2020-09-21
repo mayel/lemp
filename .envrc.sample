@@ -23,3 +23,6 @@ export DB_PASSWORD_VERSION=v1
 #	define('BLOG_ID_CURRENT_SITE', 1);\
 #	define('FORCE_SSL_ADMIN', true );\
 #	define('COOKIE_DOMAIN', \$_SERVER['HTTP_HOST']);"
+
+# Backups
+#export COMPOSE_FILE="compose.yml:compose.backup.yml"
