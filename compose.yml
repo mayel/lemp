@@ -88,7 +88,7 @@ volumes:
 
 configs:
   borgmatic_config_yml:
-    name: borgmatic_config_yml_v6
+    name: borgmatic_config_yml_v7
     file: borgmatic.yml
     template_driver: golang
 
