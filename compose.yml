@@ -52,6 +52,8 @@ services:
     image: "decentral1se/backup-bot:0.0.1"
     networks:
       - backend
+    volumes:
+      - "wordpress_content:/var/www/html/wp-content/"
     secrets:
       - source: backup_bot_ssh_key
         mode: 0400

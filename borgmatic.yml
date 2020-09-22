@@ -1,5 +1,6 @@
 location:
-  source_directories: []
+  source_directories:
+    - /var/www/html/wp-content
   repositories:
     - {{ env "BORGBASE_REPO" }}
 
