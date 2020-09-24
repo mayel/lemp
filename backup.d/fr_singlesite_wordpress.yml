@@ -17,7 +17,7 @@ services:
       - source: borgmatic_config_yml
         target: /etc/borgmatic/config.yaml
     environment:
-      - BORGBASE_REPO="g067e243@g067e243.repo.borgbase.com:repo"
+      - BORGBASE_REPO="l32s99em@l32s99em.repo.borgbase.com:repo"
       - DB_HOST=mariadb
       - DB_TABLE=wordpress
       - DB_USER=wordpress
@@ -34,7 +34,7 @@ services:
 
 configs:
   borgmatic_config_yml:
-    name: borgmatic_config_yml_v7
+    name: borgmatic_config_yml_v1
     file: borgmatic.yml
     template_driver: golang
 
@@ -43,5 +43,5 @@ secrets:
     name: backup_bot_ssh_key_v1
     external: true
   backup_bot_password:
-    name: backup_bot_password_v1
+    name: backup_bot_singlesite_passwd_v1
     external: true
