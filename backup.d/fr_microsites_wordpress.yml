@@ -35,7 +35,7 @@ services:
 configs:
   borgmatic_config_yml:
     name: borgmatic_config_yml_v1
-    file: borgmatic.yml
+    file: backup.d/borgmatic.yml
     template_driver: golang
 
 secrets:
