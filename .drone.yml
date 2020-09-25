@@ -3,17 +3,20 @@ kind: pipeline
 name: deploy to swarm-test.autonomic.zone
 steps:
   - name: deployment
-    image: decentral1se/drone-stack:19.03.8
+    image: decentral1se/stack-ssh-deploy:0.0.1
     settings:
       compose: compose.yml
-      host: ssh://swarm-test.autonomic.zone:222
-      stack_name: wordpress
+      host: swarm-test.autonomic.zone
+      stack: wordpress
+      deploy_key:
+        from_secret: drone_deploy_key
     environment:
       DOMAIN: wordpress.swarm-test.autonomic.zone
       STACK_NAME: wordpress
       LETS_ENCRYPT_ENV: production
       DB_PASSWORD_VERSION: v1
       DB_ROOT_PASSWORD_VERSION: v1
+
 trigger:
   branch:
     - master
