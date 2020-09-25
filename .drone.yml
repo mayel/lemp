@@ -16,4 +16,4 @@ steps:
       DB_ROOT_PASSWORD_VERSION: v1
 trigger:
   branch:
-    - drone
+    - master
