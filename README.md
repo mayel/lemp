@@ -1,5 +1,7 @@
 # wordpress
 
+[![Build Status](https://drone.autonomic.zone/api/badges/compose-stacks/wordpress/status.svg)](https://drone.autonomic.zone/compose-stacks/wordpress)
+
 Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
 
 1. Set up Docker Swarm and [`abra`][abra]
