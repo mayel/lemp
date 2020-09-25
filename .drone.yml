@@ -7,6 +7,7 @@ steps:
     settings:
       host: swarm-test.autonomic.zone
       stack: wordpress
+      generate_secrets: true
       purge: true
       deploy_key:
         from_secret: drone_ssh_swarm_test
