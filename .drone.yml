@@ -9,14 +9,13 @@ steps:
       host: swarm-test.autonomic.zone
       stack: wordpress
       deploy_key:
-        from_secret: drone_deploy_key
+        from_secret: drone_ssh_swarm-test.autonomic.zone
     environment:
       DOMAIN: wordpress.swarm-test.autonomic.zone
       STACK_NAME: wordpress
       LETS_ENCRYPT_ENV: production
       DB_PASSWORD_VERSION: v1
       DB_ROOT_PASSWORD_VERSION: v1
-
 trigger:
   branch:
     - master
