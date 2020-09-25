@@ -3,7 +3,7 @@ kind: pipeline
 name: deploy to swarm-test.autonomic.zone
 steps:
   - name: deployment
-    image: decentral1se/stack-ssh-deploy:0.0.1
+    image: decentral1se/stack-ssh-deploy:latest
     settings:
       compose: compose.yml
       host: swarm-test.autonomic.zone

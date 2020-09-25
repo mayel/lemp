@@ -3,7 +3,7 @@ version: "3.8"
 
 services:
   backupbot:
-    image: "decentral1se/backup-bot:0.0.1"
+    image: "decentral1se/backup-bot:latest"
     networks:
       - backend
     volumes:
