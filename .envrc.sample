@@ -26,3 +26,9 @@ export DB_PASSWORD_VERSION=v1
 
 # Backups
 #export COMPOSE_FILE="compose.yml:compose.backup.yml"
+
+# SMTP
+#export COMPOSE_FILE="compose.yml:compose.mailrelay.yml"
+#export SMTP_HOST="postfix_relay_app"
+#export MSMTP_CONF_VERSION=v1
+#export ENTRYPOINT_MAILRELAY_CONF_VERSION=v1
