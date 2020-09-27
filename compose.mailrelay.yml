@@ -3,16 +3,16 @@ version: "3.8"
  
 services:
   wordpress:
-    entrypoint: /docker-entrypoint2.sh
+    entrypoint: /docker-entrypoint.sh
     environment:
       - SMTP_HOST=${SMTP_HOST}
+      - MAIL_FROM=${MAIL_FROM}
     networks:
       - mail
     configs:
-      - source: entrypoint_mailrelay_conf
-        target: /docker-entrypoint2.sh
-        mode: 0555
       - source: mstmp_conf
+        target: /etc/msmtprc
+      - source: entrypoint
         target: /etc/msmtprc
         mode: 0555
 
@@ -25,7 +25,7 @@ configs:
     name: ${STACK_NAME}_mstmp_conf_${MSMTP_CONF_VERSION}
     file: msmtp.conf.tmpl
     template_driver: golang
-  entrypoint_mailrelay_conf:
-    name: ${STACK_NAME}_entrypoint_mailrelay_${ENTRYPOINT_MAILRELAY_CONF_VERSION}
-    file: entrypoint.mailrelay.sh.tmpl
+  entrypoint_conf:
+    name: ${STACK_NAME}_entrypoint_${ENTRYPOINT_CONF_VERSION}
+    file: entrypoint.sh.tmpl
     template_driver: golang

@@ -47,5 +47,14 @@ _(Only tested using subdomains)_
 2. `direnv allow`
 3. `abra deploy`
 
+## Email
+
+1. Deploy `postfix-relay`
+2. Edit `.envrc` and uncomment the email lines; change `MAIL_FROM` to make sure
+   the domain is the same as `postfix-relay`'s `$DOMAIN` or in its
+   `$EXTRA_SENDER_DOMAINS`
+3. `direnv allow` (or `source .envrc`)
+7. `abra deploy`
+
 [abra]: https://git.autonomic.zone/autonomic-cooperative/abra
 [compose-traefik]: https://git.autonomic.zone/compose-stacks/traefik
