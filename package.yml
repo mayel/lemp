@@ -1,0 +1,11 @@
+---
+name: Wordpress
+description: Open source software you can use to create a beautiful website, blog, or app
+
+arguments:
+  name:
+  domain:
+
+secrets:
+  db_passwd:
+  db_root_passwd:
