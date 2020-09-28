@@ -12,8 +12,8 @@ services:
     configs:
       - source: mstmp_conf
         target: /etc/msmtprc
-      - source: entrypoint
-        target: /etc/msmtprc
+      - source: entrypoint_conf
+        target: /docker-entrypoint.sh
         mode: 0555
 
 networks:
@@ -26,6 +26,6 @@ configs:
     file: msmtp.conf.tmpl
     template_driver: golang
   entrypoint_conf:
-    name: ${STACK_NAME}_entrypoint_${ENTRYPOINT_CONF_VERSION}
-    file: entrypoint.sh.tmpl
+    name: ${STACK_NAME}_entrypoint_mailrelay_${ENTRYPOINT_MAILRELAY_CONF_VERSION}
+    file: entrypoint.mailrelay.sh.tmpl
     template_driver: golang
