@@ -17,6 +17,8 @@ services:
       - WORDPRESS_CONFIG_EXTRA=${WORDPRESS_CONFIG_EXTRA}
     secrets:
       - db_password
+    depends_on:
+      - db
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 30s
