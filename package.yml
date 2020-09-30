@@ -10,6 +10,8 @@ arguments:
     example: my-cool-project.com
 secrets:
   db-passwd:
+    description: The normal user database password
     length: 8
   db-root-passwd:
+    description: The root user database password
     length: 8
