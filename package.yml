@@ -2,7 +2,7 @@
 name: Wordpress
 description: Open source software you can use to create a beautiful website, blog, or app
 arguments:
-  name:
+  stack_name:
     description: The name of your Wordpress application
     example: my-cool-project
   domain:
