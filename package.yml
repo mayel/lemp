@@ -1,11 +1,15 @@
 ---
 name: Wordpress
 description: Open source software you can use to create a beautiful website, blog, or app
-
 arguments:
   name:
+    description: The name of your Wordpress application
+    example: my-cool-project
   domain:
-
+    description: The domain name where your Wordpress will be available on the web
+    example: my-cool-project.com
 secrets:
   db_passwd:
+    length: 8
   db_root_passwd:
+    length: 8
