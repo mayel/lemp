@@ -9,7 +9,7 @@ arguments:
     description: The domain name where your Wordpress will be available on the web
     example: my-cool-project.com
 secrets:
-  db_passwd:
+  db-passwd:
     length: 8
-  db_root_passwd:
+  db-root-passwd:
     length: 8
