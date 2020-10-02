@@ -2,7 +2,7 @@
 version: "3.8"
 
 services:
-  wordpress:
+  app:
     image: "wordpress:5.5.1"
     volumes:
       - "wordpress_content:/var/www/html/wp-content/"
@@ -33,7 +33,7 @@ services:
         - "traefik.http.routers.${STACK_NAME}.tls.certresolver=${LETS_ENCRYPT_ENV}"
         - "traefik.http.routers.${STACK_NAME}.entrypoints=web-secure"
 
-  mariadb:
+  db:
     image: "mariadb:10.5"
     volumes:
       - "mariadb:/var/lib/mysql"
