@@ -1,8 +1,8 @@
 ---
 version: "3.8"
- 
+
 services:
-  wordpress:
+  app:
     entrypoint: /docker-entrypoint.sh
     environment:
       - SMTP_HOST=${SMTP_HOST}

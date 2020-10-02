@@ -10,13 +10,19 @@ services:
       - backend
       - proxy
     environment:
-      - WORDPRESS_DB_HOST=mariadb
+      - WORDPRESS_DB_HOST=db
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password
       - WORDPRESS_DB_NAME=wordpress
       - WORDPRESS_CONFIG_EXTRA=${WORDPRESS_CONFIG_EXTRA}
     secrets:
       - db_password
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 1m
     deploy:
       update_config:
         failure_action: rollback
