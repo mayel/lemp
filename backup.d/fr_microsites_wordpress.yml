@@ -18,7 +18,7 @@ services:
         target: /etc/borgmatic/config.yaml
     environment:
       - BORGBASE_REPO="bp5oj726@bp5oj726.repo.borgbase.com:repo"
-      - DB_HOST=mariadb
+      - DB_HOST=db
       - DB_TABLE=wordpress
       - DB_USER=wordpress
     deploy:
