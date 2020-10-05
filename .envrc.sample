@@ -1,8 +1,8 @@
+export STACK_NAME=wordpress
+
 export DOMAIN=wordpress.example.com
 ## Domain aliases
 #export EXTRA_DOMAINS=', `www.wordpress.example.com`'
-
-export STACK_NAME=wordpress
 export LETS_ENCRYPT_ENV=production
 
 export DB_ROOT_PASSWORD_VERSION=v1
