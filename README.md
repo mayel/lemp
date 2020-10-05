@@ -15,7 +15,6 @@ Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
    abra secret_generate db_password v1
    abra secret_generate db_root_password v1
    ```
-
 7. `abra deploy`
 8. Open the configured domain in your browser to finish set-up
 9. `abra run wordpress chown www-data:www-data /var/www/html/wp-content` to fix
