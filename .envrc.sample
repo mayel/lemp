@@ -1,4 +1,5 @@
 export STACK_NAME=wordpress
+export SERVICE=wordpress
 
 export DOMAIN=wordpress.example.com
 ## Domain aliases
