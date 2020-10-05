@@ -30,11 +30,11 @@ _(Only tested using subdomains)_
 4. `abra deploy`
 5. Log into the Wordpress admin dashboard, go to Tools » Network Setup
 6. Don't worry about the suggested file changes
-7. Comment out the first `# Multisite` section in `.envrc` and uncomment the
-   `# Multisite phase 2` section
+7. Comment out the first `# Multisite` section in `.envrc`, uncomment the `#
+   Multisite phase 2` section, and add your multisite subdomain(s) to
+   `EXTRA_DOMAINS` (beware the weird syntax..)
 8. `direnv allow` (or re-run `source .envrc`)
 9. `abra deploy`
-10. FIXME setting up SSL / routing
 
 ## Installing a custom theme
 
