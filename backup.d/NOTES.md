@@ -1,3 +1,0 @@
-# Notes
-
-- The only thing different between [fr_singlesite_wordpress.yml](./fr_singlesite_wordpress.yml) and [fr_microsites_wordpress.yml](./fr_microsites_wordpress.yml) is the `BORGBASE_REPO` environment variable and the `backup_bot_singlesite_passwd_v1`/`backup_bot_multisite_passwd_v1` secret. These are the two details which are needed for Borgmatic to know how to differentiate between each repository on the Borgbase side (where our backups are stored). Sooo, there could most definitely be a reduction in boilerplate here but I was just moving super fast and wanted to get the backup work done.
