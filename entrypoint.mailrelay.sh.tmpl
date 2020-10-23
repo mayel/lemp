@@ -4,6 +4,4 @@ apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y msmtp && rm 
 
 echo "sendmail_path = /usr/bin/msmtp -t -i" > /usr/local/etc/php/conf.d/sendmail.ini
 
-# Upstream ENTRYPOINT
-# https://github.com/docker-library/wordpress/blob/master/php7.4/apache/Dockerfile#L120
-/usr/local/bin/docker-entrypoint.sh apache2-foreground "$@"
+/docker-entrypoint.sh "$@"

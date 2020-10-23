@@ -15,8 +15,16 @@ services:
       - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password
       - WORDPRESS_DB_NAME=wordpress
       - WORDPRESS_CONFIG_EXTRA=${WORDPRESS_CONFIG_EXTRA}
+      - PHP_EXTENSIONS
     secrets:
       - db_password
+    configs:
+      - source: php_uploads_conf
+        target: /usr/local/etc/php/conf.d/uploads.ini
+      - source: entrypoint_conf
+        target: /docker-entrypoint.sh
+        mode: 0555
+    entrypoint: /docker-entrypoint.sh
     depends_on:
       - db
     healthcheck:
@@ -73,3 +81,12 @@ secrets:
   db_password:
     external: true
     name: ${STACK_NAME}_db_password_${DB_PASSWORD_VERSION}
+
+configs:
+  entrypoint_conf:
+    name: ${STACK_NAME}_entrypoint_conf_${ENTRYPOINT_CONF_VERSION}
+    file: entrypoint.sh.tmpl
+    template_driver: golang
+  php_uploads_conf:
+    name: ${STACK_NAME}_php_uploads_conf_${PHP_UPLOADS_CONF_VERSION}
+    file: uploads.ini

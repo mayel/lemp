@@ -3,7 +3,7 @@ version: "3.8"
 
 services:
   app:
-    entrypoint: /docker-entrypoint.sh
+    entrypoint: /docker-entrypoint.mailrelay.sh
     environment:
       - SMTP_HOST=${SMTP_HOST}
       - MAIL_FROM=${MAIL_FROM}
@@ -12,8 +12,8 @@ services:
     configs:
       - source: mstmp_conf
         target: /etc/msmtprc
-      - source: entrypoint_conf
-        target: /docker-entrypoint.sh
+      - source: entrypoint_mailrelay_conf
+        target: /docker-entrypoint.mailrelay.sh
         mode: 0555
 
 networks:
@@ -25,7 +25,7 @@ configs:
     name: ${STACK_NAME}_mstmp_conf_${MSMTP_CONF_VERSION}
     file: msmtp.conf.tmpl
     template_driver: golang
-  entrypoint_conf:
+  entrypoint_mailrelay_conf:
     name: ${STACK_NAME}_entrypoint_mailrelay_${ENTRYPOINT_MAILRELAY_CONF_VERSION}
     file: entrypoint.mailrelay.sh.tmpl
     template_driver: golang

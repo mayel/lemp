@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker-php-ext-install {{ env "PHP_EXTENSIONS" }}
+
+# Upstream ENTRYPOINT
+# https://github.com/docker-library/wordpress/blob/master/php7.4/apache/Dockerfile#L120
+/usr/local/bin/docker-entrypoint.sh apache2-foreground "$@"

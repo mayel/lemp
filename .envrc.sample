@@ -6,8 +6,13 @@ export DOMAIN=wordpress.example.com
 #export EXTRA_DOMAINS=', `www.wordpress.example.com`'
 export LETS_ENCRYPT_ENV=production
 
+## Additional extensions
+#export PHP_EXTENSIONS="calendar"
+
 export DB_ROOT_PASSWORD_VERSION=v1
 export DB_PASSWORD_VERSION=v1
+export PHP_UPLOADS_CONF_VERSION=v1
+export ENTRYPOINT_CONF_VERSION=v1
 
 # Multisite
 #export WORDPRESS_CONFIG_EXTRA="\
