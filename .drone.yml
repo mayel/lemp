@@ -17,6 +17,8 @@ steps:
       LETS_ENCRYPT_ENV: production
       DB_PASSWORD_VERSION: v1
       DB_ROOT_PASSWORD_VERSION: v1
+      PHP_UPLOADS_CONF_VERSION: v1
+      ENTRYPOINT_CONF_VERSION: v1
 trigger:
   branch:
     - master
