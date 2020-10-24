@@ -1,7 +1,13 @@
 #!/bin/bash
 
+{{ if (env "PHP_EXTENSIONS") }}
 docker-php-ext-install {{ env "PHP_EXTENSIONS" }}
+{{ end }}
+
+if [ -n "$@" ]; then
+	"$@"
+fi
 
 # Upstream ENTRYPOINT
 # https://github.com/docker-library/wordpress/blob/master/php7.4/apache/Dockerfile#L120
-/usr/local/bin/docker-entrypoint.sh apache2-foreground "$@"
+/usr/local/bin/docker-entrypoint.sh apache2-foreground

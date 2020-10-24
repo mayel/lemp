@@ -7,18 +7,12 @@ services:
     environment:
       - SMTP_HOST=${SMTP_HOST}
       - MAIL_FROM=${MAIL_FROM}
-    networks:
-      - mail
     configs:
       - source: mstmp_conf
         target: /etc/msmtprc
       - source: entrypoint_mailrelay_conf
         target: /docker-entrypoint.mailrelay.sh
         mode: 0555
-
-networks:
-  mail:
-    external: true
 
 configs:
   mstmp_conf:
