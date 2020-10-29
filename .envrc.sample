@@ -1,5 +1,4 @@
-export STACK_NAME=wordpress
-export SERVICE=wordpress
+export APP=wordpress
 
 export DOMAIN=wordpress.example.com
 ## Domain aliases
@@ -12,7 +11,7 @@ export LETS_ENCRYPT_ENV=production
 export DB_ROOT_PASSWORD_VERSION=v1
 export DB_PASSWORD_VERSION=v1
 export PHP_UPLOADS_CONF_VERSION=v1
-export ENTRYPOINT_MAILRELAY_CONF_VERSION=v1
+export ENTRYPOINT_CONF_VERSION=v1
 
 # Multisite
 #export WORDPRESS_CONFIG_EXTRA="\
