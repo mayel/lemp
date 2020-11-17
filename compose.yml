@@ -66,7 +66,6 @@ services:
 
 networks:
   backend:
-    driver: overlay
   proxy:
     external: true
 
