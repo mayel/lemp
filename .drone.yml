@@ -15,8 +15,8 @@ steps:
       DOMAIN: wordpress.swarm-test.autonomic.zone
       STACK_NAME: wordpress
       LETS_ENCRYPT_ENV: production
-      DB_PASSWORD_VERSION: v1
-      DB_ROOT_PASSWORD_VERSION: v1
+      SECRET_DB_PASSWORD_VERSION: v1
+      SECRET_DB_ROOT_PASSWORD_VERSION: v1
       PHP_UPLOADS_CONF_VERSION: v1
       ENTRYPOINT_CONF_VERSION: v1
 trigger:

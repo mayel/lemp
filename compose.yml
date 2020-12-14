@@ -76,10 +76,10 @@ volumes:
 secrets:
   db_root_password:
     external: true
-    name: ${STACK_NAME}_db_root_password_${DB_ROOT_PASSWORD_VERSION}
+    name: ${STACK_NAME}_db_root_password_${SECRET_DB_ROOT_PASSWORD_VERSION}
   db_password:
     external: true
-    name: ${STACK_NAME}_db_password_${DB_PASSWORD_VERSION}
+    name: ${STACK_NAME}_db_password_${SECRET_DB_PASSWORD_VERSION}
 
 configs:
   entrypoint_conf:
