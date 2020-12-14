@@ -16,6 +16,13 @@ Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
 8. `abra app YOURAPPDOMAIN run app chown www-data:www-data /var/www/html/wp-content` to fix
    file permissions (see #3)
 
+## Running WP-CLI
+
+`abra app YOURAPPDOMAIN wp 'core check-update --major'`
+
+(the WP-CLI arguments need to be quoted, because of how `abra` handles
+command-line arguments)
+
 ## Network (Multi-site)
 
 _(Only tested using subdomains)_
