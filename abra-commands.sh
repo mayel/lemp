@@ -7,5 +7,5 @@ sub_wp() {
     exit
   fi
 	# shellcheck disable=SC2154,SC2086
-	docker run -it --volumes-from "$CONTAINER" --network "container:$CONTAINER" wordpress:cli wp $abra__arg_
+	docker run -it --volumes-from "$CONTAINER" --network "container:$CONTAINER" wordpress:cli wp ${abra__args_[*]}
 }
