@@ -21,11 +21,15 @@ abra_backup_app() {
   FILENAME="$ABRA_DIR/backups/${abra__app_}_wp-content_$(date +%F).tar.gz"
 
   sub_app_cp | gzip > "$FILENAME"
+
+  success "Backed up 'app' to $FILENAME"
 }
 
 abra_backup_db() {
   # shellcheck disable=SC2034
   abra__service_="db"
+  # 3wc: necessary because $abra__service_ won't be set if we're coming from 
+  # `abra_backup`, i.e. `abra app ... backup --all`
 
   DB_ROOT_PASSWORD=$(sub_app_run cat /run/secrets/db_root_password)
 
@@ -33,8 +37,36 @@ abra_backup_db() {
   FILENAME="$ABRA_DIR/backups/${abra__app_}_$(date +%F).sql.gz"
 
   sub_app_run mysqldump -u root -p"$DB_ROOT_PASSWORD" wordpress | gzip > "$FILENAME"
+
+  success "Backed up 'db' to $FILENAME"
 }
 
 abra_backup() {
   abra_backup_app && abra_backup_db
+}
+
+abra_restore_app() {
+  # shellcheck disable=SC2034
+  {
+	abra__src_="-"
+	abra__dst_="app:/var/www/html/"
+  }
+
+  zcat "$@" | sub_app_cp 
+
+  success "Restored 'app'"
+}
+
+abra_restore_db() {
+  # 3wc: unlike abra_backup_db, we can assume abra__service_ will be 'db' if we
+  # got this far..
+
+  # shellcheck disable=SC2034
+  abra___no_tty="true"
+
+  DB_ROOT_PASSWORD=$(sub_app_run cat /run/secrets/db_root_password)
+
+  zcat "$@" | sub_app_run mysql -u root -p"$DB_ROOT_PASSWORD" wordpress
+
+  success "Restored 'db'"
 }
