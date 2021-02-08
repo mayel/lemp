@@ -1,3 +1,8 @@
+export PHP_UPLOADS_CONF_VERSION=v3
+export ENTRYPOINT_CONF_VERSION=v2
+export ENTRYPOINT_MAILRELAY_CONF_VERSION=v1
+export MSMTP_CONF_VERSION=v1
+
 sub_wp() {
   load_instance
   load_instance_env
