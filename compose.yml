@@ -44,7 +44,7 @@ services:
         - "traefik.http.services.${STACK_NAME}.loadbalancer.server.port=80"
         - "traefik.http.routers.${STACK_NAME}.rule=Host(`${DOMAIN}`${EXTRA_DOMAINS})"
         # 3wc: this rule works for routing, but not for generating certificates
-        # see https://git.autonomic.zone/compose-stacks/planning/issues/14
+        # see https://git.autonomic.zone/coop-cloud/planning/issues/14
         #- "traefik.http.routers.${STACK_NAME}.rule=HostRegexp(`{subdomain:.+}.${DOMAIN}`, `${DOMAIN}`)"
         - "traefik.http.routers.${STACK_NAME}.tls.certresolver=${LETS_ENCRYPT_ENV}"
         - "traefik.http.routers.${STACK_NAME}.entrypoints=web-secure"
