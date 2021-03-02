@@ -1,16 +1,28 @@
-# wordpress
+# Wordpress
 
 [![Build Status](https://drone.autonomic.zone/api/badges/coop-cloud/wordpress/status.svg)](https://drone.autonomic.zone/coop-cloud/wordpress)
 
 Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
 
+<!-- metadata -->
+* **Category**: Apps
+* **Status**: ❶💚
+* **Image**: [`wordpress`](https://hub.docker.com/_/wordpress), ❶💚, upstream
+* **Healthcheck**: Yes
+* **Backups**: Yes
+* **Email**: ❶💚
+* **Tests**: ❷💛
+* **SSO**: No
+<!-- endmetadata -->
+
+## Basic usage
+
 1. Set up Docker Swarm and [`abra`][abra]
 2. Deploy [`coop-cloud/traefik`][cc-traefik]
-3. `abra app new wordpress`
+3. `abra app new wordpress --secrets` (optionally with `--pass` if you'd like
+   to save secrets in `pass`)
 4. `abra app YOURAPPDOMAIN config` - be sure to change `$DOMAIN` to something that resolves to
    your Docker swarm box
-5. `abra app YOURAPPDOMAIN secret auto` (optionally with `--pass` if you'd like
-   to save secrets in `pass`).
 6. `abra app YOURAPPDOMAIN deploy`
 7. Open the configured domain in your browser to finish set-up
 8. `abra app YOURAPPDOMAIN run app chown www-data:www-data /var/www/html/wp-content` to fix
@@ -41,7 +53,7 @@ _(Only tested using subdomains)_
 
 `abra app YOURAPPDOMAIN cp ~/path/to/local/theme wordpress:/var/www/html/wp-content/themes/`
 
-## Backups
+## Backups (using backup-bot)
 
 1. `abra app YOURAPPDOMAIN config`, and uncomment the `export COMPOSE_FILE="compose.yml:compose.backup.yml"` line
 2. `abra app YOURAPPDOMAIN deploy`
@@ -56,4 +68,4 @@ _(Only tested using subdomains)_
 
 [abra]: https://git.autonomic.zone/autonomic-cooperative/abra
 [cc-traefik]: https://git.autonomic.zone/coop-cloud/traefik
-[cc-postfix-relax]: https://git.autonomic.zone/coop-cloud/traefik
+[cc-postfix-relay]: https://git.autonomic.zone/coop-cloud/traefik
