@@ -4,15 +4,38 @@ export ENTRYPOINT_MAILRELAY_CONF_VERSION=v1
 export MSMTP_CONF_VERSION=v1
 
 sub_wp() {
-  load_instance
-  load_instance_env
-	CONTAINER=$(docker container ls -f "Name=${STACK_NAME}_app" --format '{{ .ID }}')
+  CONTAINER=$(docker container ls -f "Name=${STACK_NAME}_app" --format '{{ .ID }}')
   if [ -z "$CONTAINER" ]; then
     error "Can't find a container for ${STACK_NAME}_app"
     exit
   fi
+  debug "Using Container ID ${CONTAINER}"
+  
+  # FIXME 3wc: we're fighting the Wordpress image, which recommends a named
+  # volume for /var/www/html -- this used to work fine using --volumes-from
+  # because the actual MySQL password was inserted into the generated
+  # wp-config.php -- but as of Wordpress 5.7.0, wp-config loads data straight
+  # from the environment, which requires Docker secrets to work, which only work
+  # in swarm services (not one-off `docker run` commands). Defining a `cli`
+  # service in compose.yml almost works, but there's no volumes_from: in Compose
+  # V3, and without it then the `cli` service can't access Wordpress core.
+  # See https://git.autonomic.zone/coop-cloud/wordpress/issues/21
+  warning "Slowly looking up MySQL password..."
+  silence
+  abra__service_="app"
+  DB_PASSWORD="$(sub_app_run cat "/run/secrets/db_password")"
+  unsilence
+
   # shellcheck disable=SC2154,SC2086
-  docker run -it --volumes-from "$CONTAINER" --network "container:$CONTAINER" wordpress:cli wp ${abra__args_[*]}
+  docker run -it \
+	--volumes-from "$CONTAINER" \
+	--network "container:$CONTAINER" \
+    -e WORDPRESS_DB_HOST=db \
+    -e WORDPRESS_DB_USER=wordpress \
+    -e WORDPRESS_DB_PASSWORD=${DB_PASSWORD} \
+    -e WORDPRESS_DB_NAME=wordpress \
+    -e WORDPRESS_CONFIG_EXTRA=${WORDPRESS_CONFIG_EXTRA} \
+	wordpress:cli wp ${abra__args_[*]}
 }
 
 abra_backup_app() {
