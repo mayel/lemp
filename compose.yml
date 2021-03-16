@@ -48,6 +48,7 @@ services:
         #- "traefik.http.routers.${STACK_NAME}.rule=HostRegexp(`{subdomain:.+}.${DOMAIN}`, `${DOMAIN}`)"
         - "traefik.http.routers.${STACK_NAME}.tls.certresolver=${LETS_ENCRYPT_ENV}"
         - "traefik.http.routers.${STACK_NAME}.entrypoints=web-secure"
+        - "coop-cloud.${STACK_NAME}.app.version=${ABRA_TYPE_APP_VERSION}-${ABRA_TYPE_APP_DIGEST}"
 
   db:
     image: "mariadb:10.5"
@@ -63,6 +64,9 @@ services:
     secrets:
       - db_password
       - db_root_password
+    deploy:
+      labels:
+        - "coop-cloud.${STACK_NAME}.db.version=${ABRA_TYPE_DB_VERSION}-${ABRA_TYPE_DB_DIGEST}"
 
 networks:
   backend:
