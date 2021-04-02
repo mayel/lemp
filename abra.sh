@@ -1,9 +1,3 @@
-export ABRA_TYPE_APP_VERSION=5.7.0
-export ABRA_TYPE_APP_DIGEST=408627ce
-
-export ABRA_TYPE_DB_VERSION=10.5
-export ABRA_TYPE_DB_DIGEST=e27cf5bc
-
 export PHP_UPLOADS_CONF_VERSION=v3
 export ENTRYPOINT_CONF_VERSION=v2
 export ENTRYPOINT_MAILRELAY_CONF_VERSION=v1
@@ -16,7 +10,7 @@ sub_wp() {
     exit
   fi
   debug "Using Container ID ${CONTAINER}"
-  
+
   # FIXME 3wc: we're fighting the Wordpress image, which recommends a named
   # volume for /var/www/html -- this used to work fine using --volumes-from
   # because the actual MySQL password was inserted into the generated
@@ -63,7 +57,7 @@ abra_restore_app() {
 	abra__dst_="app:/var/www/html/"
   }
 
-  zcat "$@" | sub_app_cp 
+  zcat "$@" | sub_app_cp
 
   success "Restored 'app'"
 }
