@@ -46,7 +46,7 @@ services:
         #- "traefik.http.routers.${STACK_NAME}.rule=HostRegexp(`{subdomain:.+}.${DOMAIN}`, `${DOMAIN}`)"
         - "traefik.http.routers.${STACK_NAME}.tls.certresolver=${LETS_ENCRYPT_ENV}"
         - "traefik.http.routers.${STACK_NAME}.entrypoints=web-secure"
-        - coop-cloud.${STACK_NAME}.app.version=5.7.0-3e74612c
+        - coop-cloud.${STACK_NAME}.app.version=5.7.1-6ac2321c
   db:
     image: "mariadb:10.5"
     volumes:
