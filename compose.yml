@@ -62,7 +62,7 @@ services:
       - db_password
       - db_root_password
     deploy:
-      labels: ['coop-cloud.${STACK_NAME}.db.version=10.5-9c681cef']
+      labels: ['coop-cloud.${STACK_NAME}.db.version=10.6-718cb856']
 networks:
   backend:
   proxy:
