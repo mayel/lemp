@@ -5,14 +5,15 @@
 Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
 
 <!-- metadata -->
-* **Category**: Apps
-* **Status**: ❶💚
-* **Image**: [`wordpress`](https://hub.docker.com/_/wordpress), ❶💚, upstream
-* **Healthcheck**: Yes
-* **Backups**: Yes
-* **Email**: ❶💚
-* **Tests**: ❷💛
-* **SSO**: No
+
+- **Category**: Apps
+- **Status**: ❶💚
+- **Image**: [`wordpress`](https://hub.docker.com/_/wordpress), ❶💚, upstream
+- **Healthcheck**: Yes
+- **Backups**: Yes
+- **Email**: ❶💚
+- **Tests**: ❷💛
+- **SSO**: No
 <!-- endmetadata -->
 
 ## Basic usage
@@ -23,9 +24,9 @@ Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
    to save secrets in `pass`)
 4. `abra app YOURAPPDOMAIN config` - be sure to change `$DOMAIN` to something that resolves to
    your Docker swarm box
-6. `abra app YOURAPPDOMAIN deploy`
-7. Open the configured domain in your browser to finish set-up
-8. `abra app YOURAPPDOMAIN run app chown www-data:www-data /var/www/html/wp-content` to fix
+5. `abra app YOURAPPDOMAIN deploy`
+6. Open the configured domain in your browser to finish set-up
+7. `abra app YOURAPPDOMAIN run app chown www-data:www-data /var/www/html/wp-content` to fix
    file permissions (see #3)
 
 ## Running WP-CLI
@@ -52,11 +53,6 @@ _(Only tested using subdomains)_
 ## Installing a custom theme
 
 `abra app YOURAPPDOMAIN cp ~/path/to/local/theme wordpress:/var/www/html/wp-content/themes/`
-
-## Backups (using backup-bot)
-
-1. `abra app YOURAPPDOMAIN config`, and uncomment the `export COMPOSE_FILE="compose.yml:compose.backup.yml"` line
-2. `abra app YOURAPPDOMAIN deploy`
 
 ## Email
 
