@@ -30,11 +30,12 @@ sub_wp() {
   docker run -it \
 	--volumes-from "$CONTAINER" \
 	--network "container:$CONTAINER" \
+	-u xfs:xfs \
     -e WORDPRESS_DB_HOST=db \
     -e WORDPRESS_DB_USER=wordpress \
-    -e WORDPRESS_DB_PASSWORD=${DB_PASSWORD} \
+    -e WORDPRESS_DB_PASSWORD="${DB_PASSWORD}" \
     -e WORDPRESS_DB_NAME=wordpress \
-    -e WORDPRESS_CONFIG_EXTRA=${WORDPRESS_CONFIG_EXTRA} \
+    -e WORDPRESS_CONFIG_EXTRA="${WORDPRESS_CONFIG_EXTRA}" \
 	wordpress:cli wp ${abra__args_[*]}
 }
 
