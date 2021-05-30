@@ -14,6 +14,7 @@ Coöp Cloud + [Wordpress](https://wordpress.org) = 🥳
 - **Email**: ❶💚
 - **Tests**: ❷💛
 - **SSO**: No
+
 <!-- endmetadata -->
 
 ## Basic usage
