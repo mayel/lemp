@@ -56,6 +56,13 @@ _(Only tested using subdomains)_
 
 ## Email
 
+There is a local or remote SMTP relay configuration available.
+
+- **local**: `COMPOSE_FILE=compose.yml:compose.mailrelay.yml`
+- **remote**: `COMPOSE_FILE=compose.yml:compose.mailrelay.yml:compose.smtp.yml`
+
+Below are the instructions for the local relay.
+
 1. Deploy [`postfix-relay`][cc-postfix-relay]
 2. `abra app YOURAPPDOMAIN config`, and uncomment the email lines; change
    `MAIL_FROM` to make sure the domain is the same as `postfix-relay`'s
