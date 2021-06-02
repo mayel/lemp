@@ -1,6 +1,7 @@
 account default
 host {{ env "SMTP_HOST" }}
 from {{ env "MAIL_FROM" }}
+user {{ env "MAIL_FROM" }}
 port {{ env "SMTP_PORT" }}
 
 {{ if eq (env "SMTP_AUTH") "on" }}
