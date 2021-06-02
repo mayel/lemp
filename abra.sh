@@ -1,7 +1,7 @@
 export PHP_UPLOADS_CONF_VERSION=v3
 export ENTRYPOINT_CONF_VERSION=v2
 export ENTRYPOINT_MAILRELAY_CONF_VERSION=v1
-export MSMTP_CONF_VERSION=v1
+export MSMTP_CONF_VERSION=v2
 
 sub_wp() {
   CONTAINER=$(docker container ls -f "Name=${STACK_NAME}_app" --format '{{ .ID }}')

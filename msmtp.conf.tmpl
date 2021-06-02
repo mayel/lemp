@@ -1,3 +1,14 @@
 account default
 host {{ env "SMTP_HOST" }}
 from {{ env "MAIL_FROM" }}
+port {{ env "SMTP_PORT" }}
+
+{{ if eq (env "SMTP_AUTH") "on" }}
+auth {{ env "SMTP_AUTH" }}
+passwordeval "cat /run/secrets/smtp_password"
+{{ end }}
+
+{{ if eq (env "SMTP_TLS") "on" }}
+tls {{ env "SMTP_TLS" }}
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+{{ end }}

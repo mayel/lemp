@@ -4,8 +4,13 @@ version: "3.8"
 services:
   app:
     entrypoint: /docker-entrypoint.mailrelay.sh
+    secrets:
+      - smtp_password
     environment:
       - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_AUTH=${SMTP_AUTH}
+      - SMTP_TLS=${SMTP_TLS}
       - MAIL_FROM=${MAIL_FROM}
     configs:
       - source: mstmp_conf
@@ -23,3 +28,8 @@ configs:
     name: ${STACK_NAME}_entrypoint_mailrelay_${ENTRYPOINT_MAILRELAY_CONF_VERSION}
     file: entrypoint.mailrelay.sh.tmpl
     template_driver: golang
+
+secrets:
+  smtp_password:
+    name: ${STACK_NAME}_smtp_password_${SECRET_SMTP_PASSWORD_VERSION}
+    external: true
