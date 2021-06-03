@@ -22,3 +22,16 @@ steps:
 trigger:
   branch:
     - master
+---
+kind: pipeline
+name: recipe release
+steps:
+  - name: release a new version
+    image: decentral1se/drone-abra:latest
+    settings:
+      command: recipe matrix-synapse release
+      deploy_key:
+        from_secret: abra_bot_deploy_key
+trigger:
+  event:
+    - tag
