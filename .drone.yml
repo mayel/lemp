@@ -32,6 +32,3 @@ steps:
       command: recipe wordpress release
       deploy_key:
         from_secret: abra_bot_deploy_key
-trigger:
-  event:
-    - tag
