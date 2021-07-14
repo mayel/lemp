@@ -25,7 +25,7 @@ Coöp Cloud + [PHP](https://php.org) + MariaDB + Nginx = 🥳
 4. `abra app YOURAPPDOMAIN config` - be sure to change `$DOMAIN` to something that resolves to
    your Docker swarm box
 5. `abra app YOURAPPDOMAIN deploy`
-6. Copy your site files using something like: `abra app YOURAPPDOMAIN cp index.html app:/var/www/html/`
+6. Copy your site files using something like: `abra app YOURAPPDOMAIN cp index.html app:/var/www/html/` or if you want to copy an entire directory: `tar cf - ./mysite | abra app YOURAPPDOMAIN cp - app:/var/www/html/`
 6. Use [restore functionality](https://docs.coopcloud.tech/backup-restore/) to import a SQL file into the db
 6. Open the configured domain in your browser to check all is good
 

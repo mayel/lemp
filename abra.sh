@@ -1,8 +1,8 @@
+export NGINX_DEFAULT_CONF_VERSION=v3
 export PHP_UPLOADS_CONF_VERSION=v3
 export ENTRYPOINT_CONF_VERSION=v2
 export ENTRYPOINT_MAILRELAY_CONF_VERSION=v1
 export MSMTP_CONF_VERSION=v3
-export NGINX_DEFAULT_CONF_VERSION=v1
 
 abra_backup_app() {
   _abra_backup_dir "app:/var/www/html/"
