@@ -1,4 +1,4 @@
-# PHP / LEMP
+# custom-php
 
 
 Coöp Cloud + [PHP](https://php.org) + MariaDB + Nginx = 🥳
@@ -20,7 +20,7 @@ Coöp Cloud + [PHP](https://php.org) + MariaDB + Nginx = 🥳
 
 1. Set up Docker Swarm and [`abra`][abra]
 2. Deploy [`coop-cloud/traefik`][cc-traefik]
-3. `abra app new lemp --secrets` (optionally with `--pass` if you'd like
+3. `abra app new custom-php --secrets` (optionally with `--pass` if you'd like
    to save secrets in `pass`)
 4. `abra app YOURAPPDOMAIN config` - be sure to change `$DOMAIN` to something that resolves to
    your Docker swarm box
