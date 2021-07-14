@@ -6,14 +6,14 @@ steps:
     image: decentral1se/stack-ssh-deploy:latest
     settings:
       host: swarm-test.autonomic.zone
-      stack: wordpress
+      stack: lemp
       generate_secrets: true
       purge: true
       deploy_key:
         from_secret: drone_ssh_swarm_test
     environment:
-      DOMAIN: wordpress.swarm-test.autonomic.zone
-      STACK_NAME: wordpress
+      DOMAIN: lemp.swarm-test.autonomic.zone
+      STACK_NAME: lemp
       LETS_ENCRYPT_ENV: production
       SECRET_DB_PASSWORD_VERSION: v1
       SECRET_DB_ROOT_PASSWORD_VERSION: v1

@@ -1,19 +1,18 @@
 version: "3.8"
 services:
-  app:
-    image: "wordpress:5.7.2"
+  backend:
+    image: adhocore/phpfpm:8.0
     volumes:
-      - "wordpress_content:/var/www/html/wp-content/"
+      - "site_content:/var/www/html/"
     networks:
       - backend
       - proxy
     environment:
-      - WORDPRESS_DB_HOST=db
-      - WORDPRESS_DB_USER=wordpress
-      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password
-      - WORDPRESS_DB_NAME=wordpress
-      - WORDPRESS_CONFIG_EXTRA=${WORDPRESS_CONFIG_EXTRA}
-      - PHP_EXTENSIONS
+      - DB_HOST=db
+      - DB_USER=site
+      - DB_PASSWORD_FILE=/run/secrets/db_password
+      - DB_NAME=site
+      - PHP_EXTENSIONS_TO_DISABLE
     secrets:
       - db_password
     configs:
@@ -25,28 +24,41 @@ services:
     entrypoint: /docker-entrypoint.sh
     depends_on:
       - db
+    deploy:
+      update_config:
+        failure_action: rollback
+        order: start-first
+      labels:
+        - coop-cloud.${STACK_NAME}.backend.version=8.0-92fac7ac
+  frontend:
+    image: nginx:1.19.2
+    networks:
+      - proxy
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.services.${STACK_NAME}.loadbalancer.server.port=80"
+        - "traefik.http.routers.${STACK_NAME}.rule=Host(`${DOMAIN}`${EXTRA_DOMAINS})"
+        - "traefik.http.routers.${STACK_NAME}.entrypoints=web-secure"
+        - "traefik.http.routers.${STACK_NAME}.tls.certresolver=${LETS_ENCRYPT_ENV}"
+        # Redirect from EXTRA_DOMAINS to DOMAIN
+        - "traefik.http.routers.${STACK_NAME}.middlewares=${STACK_NAME}-redirect"
+        - "traefik.http.middlewares.${STACK_NAME}-redirect.headers.SSLForceHost=true"
+        - "traefik.http.middlewares.${STACK_NAME}-redirect.headers.SSLHost=${DOMAIN}"
+        - coop-cloud.${STACK_NAME}.frontend.version=1.19.2-c628b67d
+    volumes:
+      - site_content:/var/www/html/
+    configs:
+      - source: nginx_default_conf
+        target: /etc/nginx/conf.d/default.conf
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 30s
       timeout: 10s
       retries: 10
       start_period: 1m
-    deploy:
-      update_config:
-        failure_action: rollback
-        order: start-first
-      labels:
-        - "traefik.enable=true"
-        - "traefik.docker.network=proxy"
-        - "traefik.http.routers.${STACK_NAME}.tls=true"
-        - "traefik.http.services.${STACK_NAME}.loadbalancer.server.port=80"
-        - "traefik.http.routers.${STACK_NAME}.rule=Host(`${DOMAIN}`${EXTRA_DOMAINS})"
-        # 3wc: this rule works for routing, but not for generating certificates
-        # see https://git.autonomic.zone/coop-cloud/planning/issues/14
-        #- "traefik.http.routers.${STACK_NAME}.rule=HostRegexp(`{subdomain:.+}.${DOMAIN}`, `${DOMAIN}`)"
-        - "traefik.http.routers.${STACK_NAME}.tls.certresolver=${LETS_ENCRYPT_ENV}"
-        - "traefik.http.routers.${STACK_NAME}.entrypoints=web-secure"
-        - coop-cloud.${STACK_NAME}.app.version=5.7.2-92fac7ac
   db:
     image: "mariadb:10.6"
     volumes:
@@ -55,8 +67,8 @@ services:
       - backend
     environment:
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
-      - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=wordpress
+      - MYSQL_DATABASE=site
+      - MYSQL_USER=site
       - MYSQL_PASSWORD_FILE=/run/secrets/db_password
     secrets:
       - db_password
@@ -69,7 +81,7 @@ networks:
     external: true
 volumes:
   mariadb:
-  wordpress_content:
+  site_content:
 secrets:
   db_root_password:
     external: true
@@ -82,6 +94,9 @@ configs:
     name: ${STACK_NAME}_entrypoint_conf_${ENTRYPOINT_CONF_VERSION}
     file: entrypoint.sh.tmpl
     template_driver: golang
+  nginx_default_conf:
+    name: ${STACK_NAME}_nginx_default_conf_${NGINX_DEFAULT_CONF_VERSION}
+    file: default.conf
   php_uploads_conf:
     name: ${STACK_NAME}_php_uploads_conf_${PHP_UPLOADS_CONF_VERSION}
     file: uploads.ini
