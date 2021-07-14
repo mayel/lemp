@@ -55,6 +55,8 @@ services:
     configs:
       - source: nginx_default_conf
         target: /etc/nginx/conf.d/default.conf
+    environment:
+      - STACK_NAME
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost"]
     #   interval: 30s
@@ -100,6 +102,7 @@ configs:
   nginx_default_conf:
     name: ${STACK_NAME}_nginx_default_conf_${NGINX_DEFAULT_CONF_VERSION}
     file: nginx.conf
+    template_driver: golang
   php_uploads_conf:
     name: ${STACK_NAME}_php_uploads_conf_${PHP_UPLOADS_CONF_VERSION}
     file: uploads.ini
