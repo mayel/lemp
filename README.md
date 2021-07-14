@@ -7,7 +7,7 @@ Coöp Cloud + [PHP](https://php.org) + MariaDB + Nginx = 🥳
 
 - **Category**: Apps
 - **Status**: ❶💚
-- **Image**: [`adhocore/phpfpm`](https://github.com/adhocore/docker-phpfpm), ❶💚, upstream
+- **Image**: [`php`](https://hub.docker.com/_/php), ❶💚, upstream
 - **Healthcheck**: Yes
 - **Backups**: Yes
 - **Email**: ❶💚
